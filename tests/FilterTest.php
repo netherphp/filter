@@ -20,8 +20,10 @@ extends TestCase {
 		$this->assertTrue(Filter\Type::Bool('1'));
 		$this->assertTrue(Filter\Type::Bool('Y'));
 		$this->assertTrue(Filter\Type::Bool('YES'));
+		$this->assertTrue(Filter\Type::Bool('Yes'));
 		$this->assertTrue(Filter\Type::Bool('T'));
 		$this->assertTrue(Filter\Type::Bool('TRUE'));
+		$this->assertTrue(Filter\Type::Bool('True'));
 
 		$this->assertFalse(Filter\Type::Bool(FALSE));
 		$this->assertFalse(Filter\Type::Bool(0));
@@ -32,6 +34,7 @@ extends TestCase {
 		$this->assertFalse(Filter\Type::Bool('NO'));
 		$this->assertFalse(Filter\Type::Bool('F'));
 		$this->assertFalse(Filter\Type::Bool('FALSE'));
+		$this->assertFalse(Filter\Type::Bool('False'));
 
 		$this->assertFalse(Filter\Type::Bool(NULL));
 		$this->assertFalse(Filter\Type::Bool('null'));
@@ -264,6 +267,31 @@ extends TestCase {
 
 	#[Test]
 	public function
+	NumbersPage():
+	void {
+
+		$this->assertSame(1, Filter\Numbers::Page(0));
+		$this->assertSame(1, Filter\Numbers::Page(1));
+		$this->assertSame(1, Filter\Numbers::Page(1.2));
+		$this->assertSame(1, Filter\Numbers::Page(1.8));
+		$this->assertSame(1, Filter\Numbers::Page('1'));
+		$this->assertSame(1, Filter\Numbers::Page('1.8'));
+
+		$this->assertSame(2, Filter\Numbers::Page(2));
+		$this->assertSame(2, Filter\Numbers::Page(2.2));
+		$this->assertSame(2, Filter\Numbers::Page(2.8));
+		$this->assertSame(2, Filter\Numbers::Page('2'));
+		$this->assertSame(2, Filter\Numbers::Page('2.8'));
+
+
+		return;
+	}
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	#[Test]
+	public function
 	NumbersNumeric():
 	void {
 
@@ -292,27 +320,47 @@ extends TestCase {
 		return;
 	}
 
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
 	#[Test]
 	public function
-	NumbersPage():
+	NumbersRangeInt():
 	void {
 
-		$this->assertSame(1, Filter\Numbers::Page(0));
-		$this->assertSame(1, Filter\Numbers::Page(1));
-		$this->assertSame(1, Filter\Numbers::Page(1.2));
-		$this->assertSame(1, Filter\Numbers::Page(1.8));
-		$this->assertSame(1, Filter\Numbers::Page('1'));
-		$this->assertSame(1, Filter\Numbers::Page('1.8'));
+		$this->assertSame(PHP_INT_MIN, Filter\Numbers::RangeInt(PHP_INT_MIN));
+		$this->assertSame(PHP_INT_MAX, Filter\Numbers::RangeInt(PHP_INT_MAX));
 
-		$this->assertSame(2, Filter\Numbers::Page(2));
-		$this->assertSame(2, Filter\Numbers::Page(2.2));
-		$this->assertSame(2, Filter\Numbers::Page(2.8));
-		$this->assertSame(2, Filter\Numbers::Page('2'));
-		$this->assertSame(2, Filter\Numbers::Page('2.8'));
+		$this->assertSame(0, Filter\Numbers::RangeInt(PHP_INT_MIN, 0, 69));
+		$this->assertSame(42, Filter\Numbers::RangeInt(42, 0, 69));
+		$this->assertSame(69, Filter\Numbers::RangeInt(PHP_INT_MAX, 0, 69));
 
+		$this->assertSame(1, Filter\Numbers::RangeInt(PHP_INT_MIN, 1, 69, -1));
+		$this->assertSame(42, Filter\Numbers::RangeInt(42, 0, 69));
+		$this->assertSame(69, Filter\Numbers::RangeInt(PHP_INT_MAX, 1, 69, -1));
+		$this->assertSame(-1, Filter\Numbers::RangeInt(-1, 1, 69, -1));
 
 		return;
 	}
 
+	#[Test]
+	public function
+	NumbersRangeFloat():
+	void {
+
+		$this->assertEquals(PHP_INT_MIN, Filter\Numbers::RangeFloat(PHP_INT_MIN));
+		$this->assertEquals(PHP_INT_MAX, Filter\Numbers::RangeFloat(PHP_INT_MAX));
+
+		$this->assertSame(0.0, Filter\Numbers::RangeFloat(PHP_INT_MIN, 0, 69));
+		$this->assertSame(6.9, Filter\Numbers::RangeFloat(6.9, 0, 69));
+		$this->assertSame(69.0, Filter\Numbers::RangeFloat(PHP_INT_MAX, 0, 69));
+
+		$this->assertSame(1.0, Filter\Numbers::RangeFloat(PHP_INT_MIN, 1, 69, -1));
+		$this->assertSame(6.9, Filter\Numbers::RangeFloat(6.9, 0, 69));
+		$this->assertSame(69.0, Filter\Numbers::RangeFloat(PHP_INT_MAX, 1, 69, -1));
+		$this->assertSame(-1.0, Filter\Numbers::RangeFloat(-1, 1, 69, -1));
+
+		return;
+	}
 
 };
