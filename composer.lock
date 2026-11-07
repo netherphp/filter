@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "af20887a8704f618a3a69c8c310702d6",
+    "content-hash": "13582c8199fd5da903cf7f289b21feff",
     "packages": [
         {
             "name": "netherphp/meta",
-            "version": "dev-master",
+            "version": "v0.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/netherphp/meta.git",
@@ -26,7 +26,6 @@
             "require-dev": {
                 "phpunit/phpunit": "^13"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -46,7 +45,7 @@
             ],
             "description": "Redux of Metaprogramming Attributes from Common",
             "support": {
-                "source": "https://github.com/netherphp/meta/tree/master",
+                "source": "https://github.com/netherphp/meta/tree/v0.0.1",
                 "issues": "https://github.com/netherphp/meta/issues"
             },
             "time": "2026-11-04T20:56:15+00:00"
@@ -1921,18 +1920,9 @@
             "time": "2024-10-20T05:08:20+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "netherphp/meta",
-            "version": "9999999-dev",
-            "alias": "0.0.1",
-            "alias_normalized": "0.0.1.0"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "netherphp/meta": 20
-    },
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
